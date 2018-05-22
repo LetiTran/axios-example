@@ -1,36 +1,45 @@
-const URL = 'http://petdibs.herokuapp.com/pets';
+const WONDERS = [
+  "Great Pyramid of Giza",
+  "Hanging Gardens of Babylon",
+  "Colossus of Rhodes",
+  "Pharos of Alexandria",
+  "Statue of Zeus at Olympia",
+  "Temple of Artemis",
+  "Mausoleum at Halicarnassus"
+];
+const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=`;
 
 const reportStatus = (message) => {
   $('#status-message').html(message);
 }
 
-const loadPets = () => {
-  const petList = $('#pet-list');
-  petList.empty();
-
-// Call on load status:
-reportStatus('Loading Pets! Please wait...');
-
+const loadWonders = () => {
+  const wondersList = $('#wonder-list');
+  wondersList.empty();
+  // Call on load status:
+  reportStatus('Loading Wonders! Please wait...');
   // get the thing:
-  axios.get(URL) //returns a promisse (newest way to handle a asyncronist thing in JS)
-  .then((response) => {
-    console.log('This is the .then');
-    //  get the data from the response and append li's to the DOM:
-    response.data.forEach((pet) => {
-      petList.append(`<li>${pet.name}</li>`);
-    });
-    reportStatus('Pets Loaded!');
+  WONDERS.forEach((wonder) => {
+    // console.log(URL + encodeURI(wonder));
+    axios.get(URL + encodeURI(wonder)) //returns a promisse (newest way to handle a asyncronist thing in JS)
+    .then((response) => {
+      console.log('This is the .then');
+      console.log(response.data.results[0].geometry.location);
+      //  get the data from the response and append li's to the DOM:
+      // response.data.forEach((wonders) => {
+      wondersList.append(`<li>${wonder}: lat: ${response.data.results[0].geometry.location.lat}, long: ${response.data.results[0].geometry.location.lng}</li>`);
+      // });
+      reportStatus('Wonders Loaded!');
+    })
   })
   // if API fails:
   .catch((error) => {
     console.log(error);
     reportStatus(`Error: ${error.message}`);
   });
-
   console.log('This is after .get');
 }
-
-// Load Pets when the user clicks on the button:
+// Load Wonders when the user clicks on the button:
 $(document).ready(() => {
-  $('#load').click(loadPets);
+  $('#load').click(loadWonders);
 })
