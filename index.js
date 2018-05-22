@@ -27,7 +27,7 @@ const loadWonders = () => {
       console.log(response.data.results[0].geometry.location);
       //  get the data from the response and append li's to the DOM:
       // response.data.forEach((wonders) => {
-      wondersList.append(`<li>${wonder}: lat: ${response.data.results[0].geometry.location.lat}, long: ${response.data.results[0].geometry.location.lng}</li>`);
+      wondersList.append(`<li> <strong> ${wonder} </strong> <br> <strong> lat: </strong>  ${response.data.results[0].geometry.location.lat} <br> <strong> long </strong> : ${response.data.results[0].geometry.location.lng}</li>`);
       // });
       reportStatus('Wonders Loaded!');
     })

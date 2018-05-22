@@ -2,7 +2,18 @@ body {
   font-family: sans-serif;
 }
 
-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+li {
+  padding: 5px;
+}
+
+li{
+  color: green;
+}
+
+strong {
+  color: black;
+}
+
+#status-message{
+  color: blue;
 }
